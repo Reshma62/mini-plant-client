@@ -1,0 +1,48 @@
+import ProductCard from "../products/ProductCard";
+import CommonHeading from "../shared/CommonHeading";
+
+const OurProduct = () => {
+  return (
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-primaryColor/5">
+      <div className="container px-4 md:px-6">
+        <CommonHeading
+          subTitle="Our Products"
+          title="Browse Our Plant Selection"
+          description="Find the perfect plant for your home or office."
+        />
+
+        <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-12">
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+          <ProductCard />
+        </div>
+        {/* <div className="flex justify-center mt-8">
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious to="#" />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink to="#">1</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink to="#" isActive>
+                    2
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink to="#">3</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext to="#" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          </div> */}
+      </div>
+    </section>
+  );
+};
+
+export default OurProduct;
