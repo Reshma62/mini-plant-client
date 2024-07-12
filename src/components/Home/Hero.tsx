@@ -24,7 +24,7 @@ const Hero = () => {
             </div>
             <div className="flex flex-col gap-2 min-[400px]:flex-row">
               <Link
-                to="#"
+                to="/product"
                 className=" text-xl font-semibold py-4 justify-center rounded-md bg-white px-8 text-[#4CAF50] shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 capitalize"
               >
                 Shop Plants

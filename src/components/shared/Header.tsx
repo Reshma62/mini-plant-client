@@ -1,55 +1,46 @@
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-import { CarIcon } from "lucide-react";
+import { Link, NavLink } from "react-router-dom";
+import Logo from "@/assets/logo.png";
+import { Input } from "../ui/input";
+import { MenuItems } from "@/utils/data";
+import { ShoppingBag } from "lucide-react";
 
 const Header = () => {
   return (
-    <div className="container mx-auto px-4 md:px-6 lg:px-8 ">
-      <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
-        <Link to="#" className="mr-6 hidden lg:flex">
-          <CarIcon className="h-6 w-6" />
-          <span className="sr-only">Car E-commerce</span>
+    <div className="bg-secondaryColor/15 px-4 md:px-6 lg:px-8">
+      <header className="flex container mx-auto h-20 w-full shrink-0 items-center px-4 md:px-6 justify-between">
+        <Link to="/" className="mr-6 hidden lg:flex">
+          <img className="w-24" src={Logo} alt="logo" />
         </Link>
-        <div className="ml-auto flex gap-2">
-          <Link
-            to="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-          >
-            Home
-          </Link>
-          <Link
-            to="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-          >
-            About
-          </Link>
-          <Link
-            to="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-          >
-            Cars
-          </Link>
-          <Link
-            to="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-          >
-            Portfolio
-          </Link>
-          <Link
-            to="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-          >
-            Contact
-          </Link>
-          <Button
-            variant="outline"
-            className="justify-self-end px-2 py-1 text-xs"
-          >
-            Sign in
-          </Button>
-          <Button className="justify-self-end px-2 py-1 text-xs">
-            Sign Up
-          </Button>
+        <div>
+          <Input placeholder="Search" className="w-96" />
+        </div>
+        <div className="flex gap-5 items-center">
+          {MenuItems.map((item) => (
+            <NavLink
+              className={({ isActive }) =>
+                `${
+                  isActive
+                    ? "text-primaryColor font-medium"
+                    : "text-secondary-foreground"
+                }  text-lg capitalize ${
+                  item.path === "/dashboard"
+                    ? "bg-primaryColor/25 py-1 px-4 rounded-md"
+                    : ""
+                }`
+              }
+              key={item.id}
+              to={item.path}
+            >
+              {item.name}
+            </NavLink>
+          ))}
+
+          <div className="relative">
+            <ShoppingBag size={30} className="text-primaryColor" />
+            <span className="absolute top-0 -right-3 inline-flex items-center justify-center p-2 w-6 h-6 leading-4 text-xs font-bold text-red-100 transform bg-primaryColor rounded-full">
+              2
+            </span>
+          </div>
         </div>
       </header>
     </div>

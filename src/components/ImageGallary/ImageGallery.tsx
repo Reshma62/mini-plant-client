@@ -13,10 +13,6 @@ const images = [
   { src: G2, rows: "row-span-1", cols: "col-span-1" },
   { src: G3, rows: "row-span-1", cols: "col-span-1" },
   { src: G4, rows: "row-span-1", cols: "col-span-2" },
-  { src: G1, rows: "row-span-1", cols: "col-span-2" },
-  { src: G2, rows: "row-span-2", cols: "col-span-2" },
-  { src: G3, rows: "row-span-1", cols: "col-span-1" },
-  { src: G4, rows: "row-span-1", cols: "col-span-1" },
 ];
 
 const ImageGallery = () => {

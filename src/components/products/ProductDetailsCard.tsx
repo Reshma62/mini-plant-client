@@ -1,104 +1,171 @@
+import { Star } from "lucide-react";
 import { Button } from "../ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const ProductDetailsCard = () => {
   return (
-    <div>
-      <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container grid items-start gap-8 lg:grid-cols-2 px-4 md:px-6">
-          <img
-            src="/placeholder.svg"
-            width="500"
-            height="500"
-            alt="Sneaker Image"
-            className="aspect-[1/1] object-cover object-center"
-          />
-          <div className="space-y-6">
-            <h1 className="text-4xl font-bold tracking-tighter">
-              Classic Sneakers
+    <div className="w-full">
+      <section className="bg-muted py-6 md:py-10 lg:py-12">
+        <div className="container grid md:grid-cols-2 gap-8 ">
+          <div>
+            <img
+              src="/placeholder.svg"
+              width={400}
+              height={400}
+              alt="Product Image"
+              className="w-full rounded-lg object-cover"
+            />
+          </div>
+          <div className="space-y-4">
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Acme Wireless Headphones
             </h1>
-            <div className="flex space-x-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-primary" />
+                <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+              </div>
+              <span className="text-muted-foreground">(4.3)</span>
             </div>
-            <p className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">
-              $120
-            </p>
-            <p className="text-base text-zinc-500 dark:text-zinc-400">
-              These classic sneakers are perfect for any occasion. They are
-              comfortable, stylish, and durable. Made with high-quality
-              materials, they are designed to last.
-            </p>
-            <Button className="w-full h-12 rounded-md bg-zinc-900 text-zinc-50 shadow-sm dark:bg-zinc-50 dark:text-zinc-900">
-              Add to Cart
-            </Button>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Fabric: 100% Cotton. Care: Machine wash cold, tumble dry low.
-            </p>
+            <div className="text-4xl font-bold">$99.99</div>
+            <div>
+              <Button size="lg">Add to Cart</Button>
+            </div>
           </div>
         </div>
+      </section>
+      <section className="container py-12 md:py-20 lg:py-24">
+        <Tabs defaultValue="description" className="w-full">
+          <TabsList className="border-b">
+            <TabsTrigger value="description">Description</TabsTrigger>
+            <TabsTrigger value="reviews">Reviews</TabsTrigger>
+          </TabsList>
+          <TabsContent value="description">
+            <div className="prose max-w-none">
+              <h2>Product Description</h2>
+              <p>
+                Introducing the Acme Wireless Headphones, the ultimate audio
+                companion for your everyday adventures. Crafted with premium
+                materials and cutting-edge technology, these headphones deliver
+                an unparalleled listening experience.
+              </p>
+              <p>
+                Featuring advanced noise-cancelling capabilities, the Acme
+                Wireless Headphones effectively block out external sounds,
+                allowing you to immerse yourself in your music, podcasts, or
+                audiobooks. With a long-lasting battery life and a comfortable,
+                adjustable design, these headphones are perfect for extended
+                wear, whether you're commuting, working, or simply relaxing.
+              </p>
+              <p>
+                Seamlessly connect to your devices via Bluetooth and enjoy
+                crystal-clear audio quality. The intuitive touch controls
+                provide easy access to your music, volume, and call management,
+                ensuring a seamless user experience.
+              </p>
+              <h2>Key Features</h2>
+              <ul>
+                <li>Advanced noise-cancelling technology</li>
+                <li>Wireless Bluetooth connectivity</li>
+                <li>Long-lasting battery life</li>
+                <li>Comfortable, adjustable design</li>
+                <li>Intuitive touch controls</li>
+              </ul>
+            </div>
+          </TabsContent>
+          <TabsContent value="reviews">
+            <div className="space-y-8">
+              <div className="flex items-Star t gap-4">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                      <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    </div>
+                    <span className="text-muted-foreground">4.3</span>
+                  </div>
+                  <p>
+                    These headphones are amazing! The noise-cancelling
+                    technology is top-notch, and the sound quality is
+                    incredible. I've been using them for my daily commute and
+                    they've been a game-changer.
+                  </p>
+                  <div className="text-xs text-muted-foreground">
+                    John Doe - June 15, 2023
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-Star t gap-4">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>SA</AvatarFallback>
+                </Avatar>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    </div>
+                    <span className="text-muted-foreground">4.8</span>
+                  </div>
+                  <p>
+                    I absolutely love these headphones! The comfort level is
+                    unbeatable, and the sound quality is simply outstanding.
+                    Highly recommended for anyone looking for a top-notch audio
+                    experience.
+                  </p>
+                  <div className="text-xs text-muted-foreground">
+                    Sarah Anderson - May 28, 2023
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-Star t gap-4">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>MK</AvatarFallback>
+                </Avatar>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-primary" />
+                      <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                      <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                    </div>
+                    <span className="text-muted-foreground">3.8</span>
+                  </div>
+                  <p>
+                    The Acme Wireless Headphones are good, but not great. The
+                    noise-cancelling works well, but the battery life could be
+                    better. Overall, they're a decent pair of headphones, but I
+                    was expecting a bit more for the price.
+                  </p>
+                  <div className="text-xs text-muted-foreground">
+                    Michael Kors - April 10, 2023
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <Button size="lg">Write a Review</Button>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </section>
     </div>
   );

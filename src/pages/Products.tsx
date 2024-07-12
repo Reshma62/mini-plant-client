@@ -1,3 +1,6 @@
+"use client";
+
+import CustomPagination from "@/components/shared/CustomPagination";
 import {
   Accordion,
   AccordionContent,
@@ -7,12 +10,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { ChevronDown } from "lucide-react";
+import { useState } from "react";
+
 import { Link } from "react-router-dom";
 
 const Products = () => {
+  const [page, setPage] = useState(1);
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen mt-20">
       <main className="flex-1 bg-background">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 py-8">
           <div className="bg-card p-6 rounded-lg shadow-md">
@@ -21,7 +26,6 @@ const Products = () => {
               <AccordionItem value="electronics">
                 <AccordionTrigger className="flex items-center justify-between">
                   Electronics
-                  <ChevronDown className="h-4 w-4" />
                 </AccordionTrigger>
                 <AccordionContent>
                   <ul className="space-y-2">
@@ -48,66 +52,6 @@ const Products = () => {
                   </ul>
                 </AccordionContent>
               </AccordionItem>
-              <AccordionItem value="clothing">
-                <AccordionTrigger className="flex items-center justify-between">
-                  Clothing
-                  <ChevronDown className="h-4 w-4" />
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="space-y-2">
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Shirts
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Pants
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Dresses
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Accessories
-                      </Link>
-                    </li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="home">
-                <AccordionTrigger className="flex items-center justify-between">
-                  Home
-                  <ChevronDown className="h-4 w-4" />
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="space-y-2">
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Furniture
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Decor
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Kitchen
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="#" className="hover:text-primary">
-                        Bedding
-                      </Link>
-                    </li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
             </Accordion>
             <Separator className="my-6" />
             <h3 className="text-lg font-bold mb-4">Filters</h3>
@@ -116,8 +60,6 @@ const Products = () => {
                 <Label htmlFor="price-range">Price Range</Label>
                 <div className="mt-2" />
               </div>
-             
-             
             </div>
           </div>
           <div>
@@ -225,6 +167,14 @@ const Products = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="col-span-full  ">
+            <CustomPagination
+              count={100}
+              setPage={setPage}
+              page={page}
+              size={10}
+            />
           </div>
         </div>
       </main>
