@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -7,21 +8,26 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import CustomFormProvider from "@/CustomFormProvider/CustomFormProvider";
 import CustomInput from "@/CustomFormProvider/CustomInput";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import CustomImageUpload from "@/CustomFormProvider/CustomImageUpload";
 import { singleImageUpload } from "@/utils/imageUploader";
-import { useAddCategoryMutation } from "@/redux/features/category/categoryApi";
+import { useUpdateCategoryMutation } from "@/redux/features/category/categoryApi";
 import {
   handleApiPromise,
   HandleApiPromiseParams,
 } from "@/utils/handlePromiseApi";
-import { DialogClose } from "@radix-ui/react-dialog";
 
-const AddCategory = () => {
-  const [addCategory] = useAddCategoryMutation();
+const EditCategory = ({ category }: { category: Record<string, string> }) => {
+  const [updateCategory] = useUpdateCategoryMutation();
+  const defaultValues = {
+    category: category?.categoryName,
+    image: category?.categoryImage,
+  };
+  console.log(category, "category");
+
   const onsubmit: SubmitHandler<FieldValues> = async (data) => {
     const file = data.image;
     console.log(file, "file");
@@ -39,7 +45,10 @@ const AddCategory = () => {
         };
         console.log("form data:===>", categoryData);
 
-        const result = addCategory(categoryData).unwrap();
+        const result = updateCategory({
+          id: category._id,
+          payload: categoryData,
+        }).unwrap();
 
         // toast.success("Category added");
         const response: HandleApiPromiseParams = {
@@ -61,8 +70,9 @@ const AddCategory = () => {
     <div>
       <Dialog>
         <DialogTrigger>
-          <Button variant={"default"}>
-            <Plus className="mr-2" /> Add new Category
+          <Button size={"sm"} variant={"outline"} className="sb-button">
+            {" "}
+            <Edit /> Edit
           </Button>
         </DialogTrigger>
         <DialogContent className="md:max-w-2xl">
@@ -73,11 +83,11 @@ const AddCategory = () => {
             </DialogDescription>
           </DialogHeader>
 
-          <CustomFormProvider onSubmit={onsubmit}>
+          <CustomFormProvider defaultValues={defaultValues} onSubmit={onsubmit}>
             <CustomInput type="text" name="category" label="Category" />
             <CustomImageUpload name="image" label="Category Image URL" />
             <DialogClose asChild>
-              <Button type="submit">Add Category</Button>
+              <Button type="submit">update Category</Button>
             </DialogClose>
           </CustomFormProvider>
         </DialogContent>
@@ -86,4 +96,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default EditCategory;
