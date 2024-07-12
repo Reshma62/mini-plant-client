@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Controller, FieldError } from "react-hook-form";
-import ErrorMessage from "../Common/ErrorMessage"; // Adjust the path as per your project structure
+import ErrorMessage from "@/components/shared/ErrorMessage";
 
 type TSelectOption = {
   label: string;
@@ -38,7 +38,7 @@ const CustomSelect = ({ name, label, options, disabled }: TSelectProps) => {
           <div>
             <Select
               {...field}
-              onValueChange={(value) => field.onChange(value)}
+              onValueChange={(value: string) => field.onChange(value)}
               disabled={disabled}
             >
               <SelectTrigger
