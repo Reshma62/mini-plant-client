@@ -2,6 +2,7 @@ import App from "@/App";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import CheckOut from "@/pages/CheckOut";
 import CategoryManagement from "@/pages/dashboard/CategoryManagment";
+import ProductManagement from "@/pages/dashboard/ProductMangment";
 import Home from "@/pages/Home";
 import ProductDetails from "@/pages/ProductDetails";
 import Products from "@/pages/Products";
@@ -38,13 +39,10 @@ const router = createBrowserRouter([
         index: true,
         element: <CategoryManagement />,
       },
-      {
-        path: "category",
-        element: <Products />,
-      },
+
       {
         path: "product",
-        element: <ProductDetails />,
+        element: <ProductManagement />,
       },
     ],
   },
