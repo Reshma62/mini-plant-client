@@ -13,12 +13,20 @@ const category = baseApi.injectEndpoints({
     }),
 
     getCategories: builder.query({
-      query: ({ page, limit }) => ({
-        url: "/category",
-        method: "GET",
-        params: { page, limit },
-      }),
+      query: ({ page, limit }) => {
+        // Initialize params as an empty object
+        const params: { page?: string; limit?: string } = {};
 
+        // Conditionally add the parameters if they exist
+        if (page) params.page = page;
+        if (limit) params.limit = limit;
+
+        return {
+          url: "/category",
+          method: "GET",
+          params,
+        };
+      },
       providesTags: ["category"],
     }),
 

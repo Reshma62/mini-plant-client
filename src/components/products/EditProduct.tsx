@@ -8,13 +8,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
+import { Edit } from "lucide-react";
 import CustomFormProvider from "@/CustomFormProvider/CustomFormProvider";
 import CustomInput from "@/CustomFormProvider/CustomInput";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import CustomImageUpload from "@/CustomFormProvider/CustomImageUpload";
 import { singleImageUpload } from "@/utils/imageUploader";
-import { useAddProductMutation } from "@/redux/features/products/productsApi";
+import { useUpdateProductMutation } from "@/redux/features/products/productsApi";
 import {
   handleApiPromise,
   HandleApiPromiseParams,
@@ -28,10 +28,24 @@ interface Category {
 }
 
 // Update the prop type
-const AddProduct = ({ category }: { category: Category[] }) => {
-  const [addProduct] = useAddProductMutation();
+const EditProduct = ({
+  category,
+  product,
+}: {
+  category: Category[];
+  product: Record<string, string>;
+}) => {
+  const [updateProduct] = useUpdateProductMutation();
   console.log(category, "category");
-
+  const defaultValues = {
+    category: product?.category,
+    title: product?.title,
+    description: product?.description,
+    price: product?.price,
+    quantity: product?.quantity,
+    rating: product?.rating,
+    image: product?.image,
+  };
   // Transform categories into select options
   const options = category.map((item) => ({
     label: item.categoryName,
@@ -60,7 +74,10 @@ const AddProduct = ({ category }: { category: Category[] }) => {
         };
         console.log("first product data:===>", productData);
 
-        const result = addProduct(productData).unwrap();
+        const result = updateProduct({
+          id: product._id,
+          payload: productData,
+        }).unwrap();
         const response: HandleApiPromiseParams = {
           result,
         };
@@ -79,19 +96,20 @@ const AddProduct = ({ category }: { category: Category[] }) => {
     <div>
       <Dialog>
         <DialogTrigger>
-          <Button variant={"default"}>
-            <Plus className="mr-2" /> Add new product
+          <Button size={"sm"} variant={"outline"} className="sb-button">
+            {" "}
+            <Edit /> Edit
           </Button>
         </DialogTrigger>
         <DialogContent className="md:max-w-2xl">
           <DialogHeader className="text-center py-2">
-            <DialogTitle className="text-center">Add new product</DialogTitle>
+            <DialogTitle className="text-center">Edit product</DialogTitle>
             <DialogDescription className="text-center">
-              Fill in the details below to add a new product.
+              Fill in the details below to edit a product.
             </DialogDescription>
           </DialogHeader>
 
-          <CustomFormProvider onSubmit={onsubmit}>
+          <CustomFormProvider defaultValues={defaultValues} onSubmit={onsubmit}>
             <CustomInput type="text" name="title" label="Title" />
             <CustomInput type="number" name="price" label="Price" />
             <CustomInput type="number" name="quantity" label="Quantity" />
@@ -100,7 +118,7 @@ const AddProduct = ({ category }: { category: Category[] }) => {
             <CustomImageUpload name="image" label="Image URL" />
             <CustomSelect name="category" label="Category" options={options} />
             <DialogClose asChild>
-              <Button type="submit">Add Product</Button>
+              <Button type="submit">Edit Product</Button>
             </DialogClose>
           </CustomFormProvider>
         </DialogContent>
@@ -109,4 +127,4 @@ const AddProduct = ({ category }: { category: Category[] }) => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;
