@@ -1,7 +1,20 @@
+import { useGetProductsQuery } from "@/redux/features/products/productsApi";
 import ProductCard from "../products/ProductCard";
 import CommonHeading from "../shared/CommonHeading";
+import { useState } from "react";
+import CustomPagination from "../shared/CustomPagination";
 
 const OurProduct = () => {
+  const limit = 4;
+  const [page, setPage] = useState(1);
+  const { data: products, isLoading } = useGetProductsQuery({
+    page,
+    limit,
+  });
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const count = products?.data?.count;
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-primaryColor/5">
       <div className="container px-4 md:px-6">
@@ -12,35 +25,20 @@ const OurProduct = () => {
         />
 
         <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-12">
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {products?.data?.data.map((product: Record<string, string>) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </div>
-        {/* <div className="flex justify-center mt-8">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious to="#" />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink to="#">1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink to="#" isActive>
-                    2
-                  </PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink to="#">3</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext to="#" />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div> */}
       </div>
+
+      {count > 0 && (
+        <CustomPagination
+          page={page}
+          setPage={setPage}
+          count={count}
+          size={limit}
+        />
+      )}
     </section>
   );
 };

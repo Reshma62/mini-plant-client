@@ -89,7 +89,7 @@ const ProductManagement = () => {
                         alt=""
                       />
                     </div>
-                    {product?.title}
+                    <span>{product?.title}</span>
                   </TableCell>
                   <TableCell>{product?.price}</TableCell>
                   <TableCell>{product?.rating}</TableCell>

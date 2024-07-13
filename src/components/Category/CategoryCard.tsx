@@ -1,14 +1,13 @@
-import CateImage from "@/assets/Flower-Plants.jpg";
 import { Link } from "react-router-dom";
 
-const CategoryCard = () => {
+const CategoryCard = ({ category }: { category: Record<string, string> }) => {
   return (
     <Link
       to={"/"}
       className="group flex flex-col items-center justify-center space-y-2  transition-all hover:scale-105 "
     >
       <img
-        src={CateImage}
+        src={category.categoryImage}
         width="200"
         height="200"
         alt="Tropical Foliage"
@@ -16,7 +15,7 @@ const CategoryCard = () => {
       />
 
       <div className="text-center">
-        <h3 className="text-xl font-bold">Tropical Foliage</h3>
+        <h3 className="text-xl font-bold">{category.categoryName}</h3>
       </div>
     </Link>
   );

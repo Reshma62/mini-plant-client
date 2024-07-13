@@ -1,37 +1,47 @@
-import { Star } from "lucide-react";
+import { Star, StarHalf, Star as StarFull } from "lucide-react";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Rating from "react-rating";
 
-const ProductDetailsCard = () => {
+// Define custom star components
+const FullStar = <StarFull fill="currentColor" />;
+const EmptyStar = <Star />;
+const HalfStar = <StarHalf fill="currentColor" />;
+const ProductDetailsCard = ({
+  details,
+}: {
+  details: Record<string, string>;
+}) => {
+  const rating = parseFloat(details.rating);
   return (
     <div className="w-full">
       <section className="bg-muted py-6 md:py-10 lg:py-12">
         <div className="container grid md:grid-cols-2 gap-8 ">
           <div>
             <img
-              src="/placeholder.svg"
+              src={details.image}
               width={400}
-              height={400}
+              // height={300}
               alt="Product Image"
-              className="w-full rounded-lg object-cover"
+              className="w-full h-96 rounded-lg object-cover"
             />
           </div>
           <div className="space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Acme Wireless Headphones
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold">{details.title}</h1>
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <Star className="w-5 h-5 fill-primary" />
-                <Star className="w-5 h-5 fill-primary" />
-                <Star className="w-5 h-5 fill-primary" />
-                <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                <Star className="w-5 h-5 fill-muted stroke-muted-foreground" />
+              <div className="flex items-center mt-2">
+                <Rating
+                  initialRating={rating}
+                  readonly
+                  emptySymbol={EmptyStar}
+                  fullSymbol={FullStar}
+                  placeholderSymbol={HalfStar}
+                />
               </div>
-              <span className="text-muted-foreground">(4.3)</span>
+              {/* <span className="text-muted-foreground">(4.3)</span> */}
             </div>
-            <div className="text-4xl font-bold">$99.99</div>
+            <div className="text-4xl font-bold">${details.price}</div>
             <div>
               <Button size="lg">Add to Cart</Button>
             </div>
@@ -47,34 +57,7 @@ const ProductDetailsCard = () => {
           <TabsContent value="description">
             <div className="prose max-w-none">
               <h2>Product Description</h2>
-              <p>
-                Introducing the Acme Wireless Headphones, the ultimate audio
-                companion for your everyday adventures. Crafted with premium
-                materials and cutting-edge technology, these headphones deliver
-                an unparalleled listening experience.
-              </p>
-              <p>
-                Featuring advanced noise-cancelling capabilities, the Acme
-                Wireless Headphones effectively block out external sounds,
-                allowing you to immerse yourself in your music, podcasts, or
-                audiobooks. With a long-lasting battery life and a comfortable,
-                adjustable design, these headphones are perfect for extended
-                wear, whether you're commuting, working, or simply relaxing.
-              </p>
-              <p>
-                Seamlessly connect to your devices via Bluetooth and enjoy
-                crystal-clear audio quality. The intuitive touch controls
-                provide easy access to your music, volume, and call management,
-                ensuring a seamless user experience.
-              </p>
-              <h2>Key Features</h2>
-              <ul>
-                <li>Advanced noise-cancelling technology</li>
-                <li>Wireless Bluetooth connectivity</li>
-                <li>Long-lasting battery life</li>
-                <li>Comfortable, adjustable design</li>
-                <li>Intuitive touch controls</li>
-              </ul>
+              <p>{details.description}</p>
             </div>
           </TabsContent>
           <TabsContent value="reviews">

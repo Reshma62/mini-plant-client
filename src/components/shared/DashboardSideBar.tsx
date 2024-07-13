@@ -3,6 +3,8 @@ import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 interface DashboardSideBarProps {
   collapsed: boolean;
 }
+import Logo from "@/assets/logo.png";
+import { Link } from "react-router-dom";
 
 const DashboardSideBar = ({ collapsed }: DashboardSideBarProps) => {
   return (
@@ -15,7 +17,10 @@ const DashboardSideBar = ({ collapsed }: DashboardSideBarProps) => {
         transitionDuration={500}
         backgroundColor="bg-primaryColor/15"
       >
-        <Menu>
+        <Menu className="mt-5">
+          <Link className="mb-5 flex justify-center items-center" to="/">
+            <img className="w-16 rounded-full" src={Logo} alt="logo" />
+          </Link>
           <MenuItem href="/dashboard"> Category</MenuItem>
           <MenuItem href="/dashboard/product"> Product</MenuItem>
         </Menu>

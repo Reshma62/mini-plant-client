@@ -1,5 +1,6 @@
 "use client";
 
+import ProductCard from "@/components/products/ProductCard";
 import CustomPagination from "@/components/shared/CustomPagination";
 import {
   Accordion,
@@ -7,15 +8,34 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useGetProductsQuery } from "@/redux/features/products/productsApi";
 import { useState } from "react";
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Link } from "react-router-dom";
 
 const Products = () => {
+  const [value, setValue] = useState("");
+  const limit = 8;
   const [page, setPage] = useState(1);
+  const { data: products, isLoading } = useGetProductsQuery({
+    page,
+    limit,
+  });
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const count = products?.data?.count;
+
   return (
     <div className="flex flex-col min-h-screen mt-20">
       <main className="flex-1 bg-background">
@@ -58,122 +78,37 @@ const Products = () => {
             <div className="space-y-4">
               <div>
                 <Label htmlFor="price-range">Price Range</Label>
-                <div className="mt-2" />
+                <Select
+                  onValueChange={(value) => setValue(value)}
+                  value={value}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="filter by price" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>price</SelectLabel>
+                      <SelectItem value="asc">low to high</SelectItem>
+                      <SelectItem value="desc">high to low</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              <div className="bg-card p-4 rounded-lg shadow-md">
-                <img
-                  src="/placeholder.svg"
-                  alt="Product 1"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Product 1</h3>
-                <p className="text-muted-foreground mb-4">
-                  Description of Product 1
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">$49.99</span>
-                  <Button>Add to Cart</Button>
-                </div>
-              </div>
-              <div className="bg-card p-4 rounded-lg shadow-md">
-                <img
-                  src="/placeholder.svg"
-                  alt="Product 2"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Product 2</h3>
-                <p className="text-muted-foreground mb-4">
-                  Description of Product 2
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">$79.99</span>
-                  <Button>Add to Cart</Button>
-                </div>
-              </div>
-              <div className="bg-card p-4 rounded-lg shadow-md">
-                <img
-                  src="/placeholder.svg"
-                  alt="Product 3"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Product 3</h3>
-                <p className="text-muted-foreground mb-4">
-                  Description of Product 3
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">$99.99</span>
-                  <Button>Add to Cart</Button>
-                </div>
-              </div>
-              <div className="bg-card p-4 rounded-lg shadow-md">
-                <img
-                  src="/placeholder.svg"
-                  alt="Product 4"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Product 4</h3>
-                <p className="text-muted-foreground mb-4">
-                  Description of Product 4
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">$59.99</span>
-                  <Button>Add to Cart</Button>
-                </div>
-              </div>
-              <div className="bg-card p-4 rounded-lg shadow-md">
-                <img
-                  src="/placeholder.svg"
-                  alt="Product 5"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Product 5</h3>
-                <p className="text-muted-foreground mb-4">
-                  Description of Product 5
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">$89.99</span>
-                  <Button>Add to Cart</Button>
-                </div>
-              </div>
-              <div className="bg-card p-4 rounded-lg shadow-md">
-                <img
-                  src="/placeholder.svg"
-                  alt="Product 6"
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover rounded-md mb-4"
-                />
-                <h3 className="text-lg font-bold mb-2">Product 6</h3>
-                <p className="text-muted-foreground mb-4">
-                  Description of Product 6
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold">$69.99</span>
-                  <Button>Add to Cart</Button>
-                </div>
-              </div>
+              {products?.data?.data.map((product: Record<string, string>) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
             </div>
           </div>
           <div className="col-span-full  ">
             <CustomPagination
-              count={100}
+              count={count}
               setPage={setPage}
               page={page}
-              size={10}
+              size={limit}
             />
           </div>
         </div>

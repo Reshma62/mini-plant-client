@@ -6,10 +6,10 @@ import { ShoppingBag } from "lucide-react";
 
 const Header = () => {
   return (
-    <div className="bg-secondaryColor/15 px-4 md:px-6 lg:px-8">
+    <div className="bg-secondaryColor/15 px-4 md:px-6 lg:px-8 sticky">
       <header className="flex container mx-auto h-20 w-full shrink-0 items-center px-4 md:px-6 justify-between">
         <Link to="/" className="mr-6 hidden lg:flex">
-          <img className="w-24" src={Logo} alt="logo" />
+          <img className="w-20 rounded-full" src={Logo} alt="logo" />
         </Link>
         <div>
           <Input placeholder="Search" className="w-96" />
