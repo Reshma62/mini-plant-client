@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { RootState } from '../store';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_BACKEND_URL,
+  baseUrl: "https://nursery-backend-ten.vercel.app/api",
 });
 
 export const baseApi = createApi({

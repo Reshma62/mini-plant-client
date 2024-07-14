@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import { Star, StarHalf, Star as StarFull } from "lucide-react";
 import { Button } from "../ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
